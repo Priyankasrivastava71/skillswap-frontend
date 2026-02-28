@@ -6,6 +6,7 @@ const Requests = () => {
   const [requests, setRequests] = useState([]);
   const [activeTab, setActiveTab] = useState("incoming");
   const [selectedRequest, setSelectedRequest] = useState(null);
+  const [feedbackRequest, setFeedbackRequest] = useState(null);
 
   const fetchRequests = async () => {
     try {
@@ -30,15 +31,12 @@ const Requests = () => {
   };
 
   const filtered = requests.filter((req) =>
-    activeTab === "incoming" ? req.isReceiver : req.isSender
+    activeTab === "incoming" ? req.isReceiver : req.isSender,
   );
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
-
-      <h1 className="text-3xl font-bold text-purple-500">
-        Skill Requests
-      </h1>
+      <h1 className="text-3xl font-bold text-purple-500">Skill Requests</h1>
 
       {/* Tabs */}
       <div className="flex gap-4">
@@ -73,42 +71,32 @@ const Requests = () => {
             className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-purple-500/20 shadow-glow flex flex-col md:flex-row justify-between gap-6"
           >
             <div>
-              <h3 className="font-bold text-lg">
-                {req.otherUser?.name}
-              </h3>
+              <h3 className="font-bold text-lg">{req.otherUser?.name}</h3>
               <p className="text-slate-400 text-sm">
                 Skill: {req.skill_requested}
               </p>
-              <p className="text-xs text-slate-500">
-                Status: {req.status}
-              </p>
+              <p className="text-xs text-slate-500">Status: {req.status}</p>
             </div>
 
             <div className="flex gap-3 flex-wrap">
-
               {/* Accept / Reject */}
-              {activeTab === "incoming" &&
-                req.status === "pending" && (
-                  <>
-                    <button
-                      onClick={() =>
-                        handleStatusUpdate(req.id, "accepted")
-                      }
-                      className="bg-green-500/20 text-green-400 px-4 py-2 rounded-xl"
-                    >
-                      Accept
-                    </button>
+              {activeTab === "incoming" && req.status === "pending" && (
+                <>
+                  <button
+                    onClick={() => handleStatusUpdate(req.id, "accepted")}
+                    className="bg-green-500/20 text-green-400 px-4 py-2 rounded-xl"
+                  >
+                    Accept
+                  </button>
 
-                    <button
-                      onClick={() =>
-                        handleStatusUpdate(req.id, "rejected")
-                      }
-                      className="bg-red-500/20 text-red-400 px-4 py-2 rounded-xl"
-                    >
-                      Reject
-                    </button>
-                  </>
-                )}
+                  <button
+                    onClick={() => handleStatusUpdate(req.id, "rejected")}
+                    className="bg-red-500/20 text-red-400 px-4 py-2 rounded-xl"
+                  >
+                    Reject
+                  </button>
+                </>
+              )}
 
               {/* Schedule AFTER accepted */}
               {req.status === "accepted" &&
@@ -127,6 +115,16 @@ const Requests = () => {
                   Scheduled
                 </span>
               )}
+
+              {/* Give Feedback AFTER completed */}
+              {req.session_status === "completed" && (
+                <button
+                  onClick={() => setFeedbackRequest(req.id)}
+                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl"
+                >
+                  Give Feedback
+                </button>
+              )}
             </div>
           </div>
         ))}
@@ -139,6 +137,14 @@ const Requests = () => {
           onRefresh={fetchRequests}
         />
       )}
+
+      {feedbackRequest && (
+  <FeedbackModal
+    requestId={feedbackRequest}
+    onClose={() => setFeedbackRequest(null)}
+    onRefresh={fetchRequests}
+  />
+)}
     </div>
   );
 };

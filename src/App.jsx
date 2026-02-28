@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
 
+
 // Pages
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,6 +20,7 @@ import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Posts from "./pages/Posts";
 
+
 function App() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -26,7 +28,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
 
-        <div className="min-h-screen bg-slate-50 dark:bg-[#0a0516] dark:text-white transition-colors duration-300">
+        <div className={`min-h-screen transition-colors duration-300 ${document.documentElement.classList.contains("dark") ? "bg-[#0a0516] text-white" : "bg-slate-50 text-slate-900"}`}>
 
           {/* Navbar */}
           <Navbar toggleSidebar={() => setIsOpen(!isOpen)} />

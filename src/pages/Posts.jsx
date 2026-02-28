@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import api from "../api/axios";
 import { Plus, Trash2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import CommentSection from "../components/CommentSection";
 
 const Posts = () => {
   const { user } = useAuth();
@@ -123,6 +124,8 @@ const Posts = () => {
                   </button>
                 )}
               </div>
+
+              <CommentSection postId={post.id}/>
             </div>
           ))}
         </div>
