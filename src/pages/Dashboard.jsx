@@ -106,7 +106,7 @@ const Dashboard = () => {
                     {u.rating || 0} ★
                   </span>
 
-                  <button className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700">
+                  <button onClick={()=> navigate(`/profile/${u.id}`)}className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700">
                     View Profile
                   </button>
                 </div>
