@@ -1,10 +1,18 @@
 # SkillSwap – Frontend
 
-SkillSwap is a full-stack skill exchange platform where users can offer skills, request skills, schedule sessions, and leave feedback after completing a session.
+SkillSwap is a full-stack skill exchange platform where users can offer skills, request skills, schedule sessions, leave feedback, and build ratings.
+
+It includes smart skill matching, top-rated users, community posts with comments, resource sharing, notifications, dashboard analytics, and a fully responsive dark-mode UI.
 
 This repository contains the frontend application built with React and Tailwind CSS.
 
 ---
+
+## Deployment Link 
+
+Frontend Live URL:
+https://skillswap-frontend-two.vercel.app
+
 
 ## 🚀 Live Backend API
 
@@ -12,6 +20,11 @@ Backend Deployment Link:
 👉 https://skillswap-backend-5k4u.onrender.com
 
 ---
+
+## Login Credentials (Demo Account)
+Email: masai@gmail.com
+Password: 12345678
+
 
 ## 🛠 Tech Stack
 
@@ -103,9 +116,8 @@ npm install
 
 3. Create a `.env` file in the root:
 
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://skillswap-backend-5k4u.onrender.com/api
 
-(Replace with your deployed backend URL in production.)
 
 4. Start development server:
 
@@ -121,7 +133,6 @@ Base URL is configured in:
 
 src/api/axios.js
 
-Make sure the backend is running and CORS is properly configured.
 
 ---
 
@@ -134,15 +145,6 @@ Make sure the backend is running and CORS is properly configured.
 
 ---
 
-## 🎯 Future Improvements
-
-- Real-time notifications
-- Chat system
-- File/resource uploads
-- Advanced filtering
-- Session reminders
-
----
 
 ## 👩‍💻 Author
 
@@ -155,7 +157,25 @@ Developed as a full-stack project demonstrating:
 
 ---
 
-## 📌 Note
+## Screenshot
+Login - https://drive.google.com/file/d/1hlsV0j4PbWPhb8cr7icfW30_yJb7sa_M/view?usp=sharing
 
-This is the frontend application.
-Backend API must be running and connected for full functionality.
+Dashboard- https://drive.google.com/file/d/1VpcLRwCiiIMr8WJO92zn1sTfz1c593PS/view?usp=sharing
+
+Explor - https://drive.google.com/file/d/1DDJABkmZcHF0k7df_rfM3npH8ig73VGf/view?usp=sharing
+
+Post - https://drive.google.com/file/d/1WShI5NXxEVpiMydf0gQpkWkx6Prc_5l9/view?usp=sharing
+
+Request - https://drive.google.com/file/d/1r6BcuOp8a-XXRPXb0b1rUbrwSq_FfUBl/view?usp=sharing
+
+Calendar - https://drive.google.com/file/d/1KTLY8uJgFoCR6fATVI_2CPcSzqV_G5pT/view?usp=sharing
+
+Resource - https://drive.google.com/file/d/1ESITJtVMLMJFHpbzsdN5aDujfWuh6WaR/view?usp=sharing
+
+Profile - https://drive.google.com/file/d/1yDZlAQdYy1Bv61fNWUWuzh1zoUbGqxfW/view?usp=sharing
+
+
+## Video Walkthrough Link
+
+https://drive.google.com/file/d/1mQoe2D1DPAkyguwEnsh9OVLP_VwMnZze/view?usp=sharing
+
