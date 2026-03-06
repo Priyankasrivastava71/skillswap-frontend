@@ -19,7 +19,7 @@ import Resources from "./pages/Resources";
 import Profile from "./pages/Profile";
 import Notifications from "./pages/Notifications";
 import Posts from "./pages/Posts";
-
+import Sessions from "./pages/Sessions";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
 
-        <div className={`min-h-screen transition-colors duration-300 ${document.documentElement.classList.contains("dark") ? "bg-[#0a0516] text-white" : "bg-slate-50 text-slate-900"}`}>
+        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0a0516] dark:text-white transition-colors duration-300">
 
           {/* Navbar */}
           <Navbar toggleSidebar={() => setIsOpen(!isOpen)} />
@@ -126,6 +126,7 @@ function App() {
 
               <Route path="/" element={<Navigate to="/dashboard" />} />
               
+              <Route path="/sessions" element={<Sessions/>}/>
             </Routes>
           </main>
           

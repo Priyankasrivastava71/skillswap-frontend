@@ -6,7 +6,8 @@ const ScheduleModal = ({ requestId, onClose, onRefresh }) => {
     session_date: '',
     session_time: '',
     duration: 60,
-    session_mode: 'video'
+    session_mode: 'video',
+    meeting_link: ''   // ⭐ added
   });
 
   const [loading, setLoading] = useState(false);
@@ -117,6 +118,25 @@ const ScheduleModal = ({ requestId, onClose, onRefresh }) => {
               <option value="audio">Audio</option>
               <option value="in-person">In Person</option>
             </select>
+          </div>
+
+          {/* ⭐ Meeting Link */}
+          <div>
+            <label className="block text-sm mb-1 dark:text-slate-300">
+              Meeting Link
+            </label>
+            <input
+              type="text"
+              placeholder="Paste Google Meet / Zoom link"
+              className="w-full bg-slate-100 dark:bg-slate-800 border border-purple-500/20 p-2 rounded-lg focus:outline-none focus:border-purple-500"
+              value={formData.meeting_link}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  meeting_link: e.target.value
+                })
+              }
+            />
           </div>
 
           {/* Buttons */}

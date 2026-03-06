@@ -5,7 +5,6 @@ import api from '../api/axios';
 import UserCard from '../components/UserCard';
 import DashboardStats from '../components/DashboardStats';
 
-
 const Dashboard = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -14,16 +13,32 @@ const Dashboard = () => {
   const [topRated, setTopRated] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Added for stats
+  const [pendingCount, setPendingCount] = useState(0);
+  const [completedCount, setCompletedCount] = useState(0);
+
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [mRes, tRes] = await Promise.all([
-          api.get('/users/matches'),
-          api.get('/users/top-rated')
-        ]);
 
+        const mRes = await api.get('/users/matches');
         setMatches(mRes.data?.data || []);
+
+        const tRes = await api.get('/users/top-rated');
         setTopRated(tRes.data?.data || []);
+
+        // Fetch requests for stats
+        const rRes = await api.get('/requests');
+        const requests = rRes.data?.data || [];
+
+        setPendingCount(
+          requests.filter(r => r.status === "pending").length
+        );
+
+        setCompletedCount(
+          requests.filter(r => r.session_status === "completed").length
+        );
+
       } catch (err) {
         console.error('Dashboard load error:', err);
         setMatches([]);
@@ -51,8 +66,8 @@ const Dashboard = () => {
       <DashboardStats
         stats={{
           rating: user?.rating || 0,
-          completed: 0, // Replace later if you add stats endpoint
-          pending: 0,
+          completed: completedCount,
+          pending: pendingCount,
           matches: matches.length
         }}
       />
@@ -106,10 +121,14 @@ const Dashboard = () => {
                     {u.rating || 0} ★
                   </span>
 
-                  <button onClick={()=> navigate(`/profile/${u.id}`)}className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700">
+                  <button
+                    onClick={() => navigate(`/profile/${u.id}`)}
+                    className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700"
+                  >
                     View Profile
                   </button>
                 </div>
+
               </div>
             ))}
           </div>

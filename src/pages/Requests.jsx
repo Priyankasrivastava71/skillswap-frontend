@@ -6,12 +6,11 @@ const Requests = () => {
   const [requests, setRequests] = useState([]);
   const [activeTab, setActiveTab] = useState("incoming");
   const [selectedRequest, setSelectedRequest] = useState(null);
-  const [feedbackRequest, setFeedbackRequest] = useState(null);
 
   const fetchRequests = async () => {
     try {
       const res = await api.get("/requests");
-      setRequests(res.data.data);
+      setRequests(res.data.data || []);
     } catch (err) {
       console.error(err);
     }
@@ -31,7 +30,7 @@ const Requests = () => {
   };
 
   const filtered = requests.filter((req) =>
-    activeTab === "incoming" ? req.isReceiver : req.isSender,
+    activeTab === "incoming" ? req.isReceiver : req.isSender
   );
 
   return (
@@ -72,13 +71,18 @@ const Requests = () => {
           >
             <div>
               <h3 className="font-bold text-lg">{req.otherUser?.name}</h3>
+
               <p className="text-slate-400 text-sm">
                 Skill: {req.skill_requested}
               </p>
-              <p className="text-xs text-slate-500">Status: {req.status}</p>
+
+              <p className="text-xs text-slate-500">
+                Status: {req.status}
+              </p>
             </div>
 
             <div className="flex gap-3 flex-wrap">
+
               {/* Accept / Reject */}
               {activeTab === "incoming" && req.status === "pending" && (
                 <>
@@ -98,33 +102,23 @@ const Requests = () => {
                 </>
               )}
 
-              {/* Schedule AFTER accepted */}
-              {req.status === "accepted" &&
-                req.session_status !== "scheduled" && (
-                  <button
-                    onClick={() => setSelectedRequest(req.id)}
-                    className="bg-purple-600 text-white px-4 py-2 rounded-xl"
-                  >
-                    Schedule Session
-                  </button>
-                )}
+              {/* Schedule Session */}
+              {req.status === "accepted" && req.session_status !== "scheduled" && (
+                <button
+                  onClick={() => setSelectedRequest(req.id)}
+                  className="bg-purple-600 text-white px-4 py-2 rounded-xl"
+                >
+                  Schedule Session
+                </button>
+              )}
 
-              {/* Scheduled */}
+              {/* Session Scheduled Info */}
               {req.session_status === "scheduled" && (
-                <span className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-xl">
-                  Scheduled
+                <span className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-xl self-center">
+                  Session Scheduled
                 </span>
               )}
 
-              {/* Give Feedback AFTER completed */}
-              {req.session_status === "completed" && (
-                <button
-                  onClick={() => setFeedbackRequest(req.id)}
-                  className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl"
-                >
-                  Give Feedback
-                </button>
-              )}
             </div>
           </div>
         ))}
@@ -137,14 +131,6 @@ const Requests = () => {
           onRefresh={fetchRequests}
         />
       )}
-
-      {feedbackRequest && (
-  <FeedbackModal
-    requestId={feedbackRequest}
-    onClose={() => setFeedbackRequest(null)}
-    onRefresh={fetchRequests}
-  />
-)}
     </div>
   );
 };

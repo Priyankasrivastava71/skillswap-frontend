@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import api from './api/axios';
+import api from '../api/axios';
 import { Star } from 'lucide-react';
 
 const FeedbackModal = ({ requestId, onClose, onRefresh }) => {
