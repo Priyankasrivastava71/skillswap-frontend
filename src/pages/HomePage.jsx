@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import learningImg from "../assets/learning.svg";
 import {
   Users,
   Calendar,
@@ -62,7 +63,7 @@ const HomePage = () => {
 
           <div className="flex-1">
             <img
-              src="https://illustrations.popsy.co/gray/team-work.svg"
+              src={learningImg}
               alt="Skill exchange"
               className="w-full max-w-md mx-auto"
             />

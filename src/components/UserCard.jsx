@@ -40,7 +40,7 @@ const UserCard = ({ user }) => {
         </div>
 
         <button
-          onClick={() =>{console.log("fjei",u.id)}}
+          onClick={() => navigate(`/profile/${user.id}`)}
 
           className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700 transition"
         >
