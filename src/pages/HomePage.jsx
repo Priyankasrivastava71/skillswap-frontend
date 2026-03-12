@@ -20,15 +20,15 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0a0516] text-slate-900 dark:text-white">
+    <div className="w-full min-h-screen bg-slate-50 dark:bg-[#0a0516] text-slate-900 dark:text-white overflow-x-hidden">
 
       {/* HERO SECTION */}
       <section className="bg-gradient-to-br from-purple-900/10 via-transparent to-fuchsia-900/10">
-        <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-12">
+        <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center justify-between gap-12">
 
-          <div className="flex-1 space-y-6">
+          <div className="flex-1 space-y-6 text-center md:text-left">
 
-            <h1 className="text-5xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-5xl font-bold leading-tight">
               Learn Anything.
               <br />
               <span className="text-purple-600 dark:text-purple-400">
@@ -36,12 +36,12 @@ const HomePage = () => {
               </span>
             </h1>
 
-            <p className="text-slate-600 dark:text-slate-300 text-lg">
+            <p className="text-slate-600 dark:text-slate-300 text-lg max-w-xl mx-auto md:mx-0">
               SkillSwap connects people who want to learn new skills with those
               willing to teach. Exchange knowledge, schedule sessions and grow together.
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex flex-wrap justify-center md:justify-start gap-4">
 
               <button
                 onClick={() => navigate("/register")}
@@ -61,12 +61,14 @@ const HomePage = () => {
 
           </div>
 
-          <div className="flex-1">
+          <div className="flex-1 flex justify-center">
+
             <img
               src={learningImg}
               alt="Skill exchange"
-              className="w-100 max-w-md mx-auto"
+              className="w-full max-w-md md:max-w-lg mx-auto"
             />
+
           </div>
 
         </div>
@@ -249,6 +251,5 @@ const Feature = ({ icon, title, text }) => (
     </p>
   </div>
 );
-
 
 export default HomePage;
