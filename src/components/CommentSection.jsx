@@ -52,24 +52,24 @@ const CommentSection = ({ postId }) => {
   };
 
   return (
-    <div className="mt-6 border-t border-purple-500/10 pt-4 space-y-4">
-      <h4 className="text-sm font-semibold text-purple-400">
+    <div className="mt-6 border-t border-slate-200 dark:border-purple-500/10 pt-4 space-y-4">
+      <h4 className="text-sm font-semibold text-purple-500 dark:text-purple-400">
         Comments
       </h4>
 
       {/* Existing Comments */}
       {comments.length === 0 ? (
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-slate-500 dark:text-slate-400">
           No comments yet.
         </p>
       ) : (
         comments.map((comment) => (
           <div
             key={comment.id}
-            className="bg-slate-100 dark:bg-slate-800 p-3 rounded-xl flex justify-between items-start"
+            className="bg-slate-100 dark:bg-slate-800 p-3 rounded-xl flex justify-between items-start border border-slate-200 dark:border-slate-700"
           >
             <div>
-              <p className="text-xs font-semibold text-purple-500">
+              <p className="text-xs font-semibold text-purple-600 dark:text-purple-400">
                 {comment.user?.name}
               </p>
 
@@ -97,7 +97,7 @@ const CommentSection = ({ postId }) => {
           placeholder="Write a comment..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="flex-1 bg-slate-100 dark:bg-slate-800 border border-purple-500/20 p-2 rounded-xl focus:outline-none focus:border-purple-500"
+          className="flex-1 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-300 dark:border-purple-500/20 p-2 rounded-xl focus:outline-none focus:border-purple-500"
         />
 
         <button

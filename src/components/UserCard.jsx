@@ -7,17 +7,21 @@ const UserCard = ({ user }) => {
   if (!user) return null;
 
   return (
-    <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-purple-500/20 shadow-lg">
-      <h3 className="text-xl font-bold mb-2 dark:text-white">
+    <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-purple-500/20 shadow-lg hover:shadow-xl transition-all duration-300">
+
+      {/* Name */}
+      <h3 className="text-xl font-bold mb-2 text-slate-800 dark:text-white">
         {user.name}
       </h3>
 
-      <p className="text-slate-400 text-sm mb-4">
+      {/* Bio */}
+      <p className="text-slate-500 dark:text-slate-400 text-sm mb-4">
         {user.bio || "No bio available"}
       </p>
 
+      {/* Skills */}
       <div className="mb-3">
-        <p className="text-xs font-semibold text-purple-400 uppercase mb-1">
+        <p className="text-xs font-semibold text-purple-500 dark:text-purple-400 uppercase mb-1">
           Skills Offered:
         </p>
 
@@ -25,7 +29,7 @@ const UserCard = ({ user }) => {
           {user.skills_offered?.map((skill, index) => (
             <span
               key={index}
-              className="bg-purple-500/10 text-purple-300 text-xs px-2 py-1 rounded-full"
+              className="bg-purple-500/10 text-purple-600 dark:text-purple-300 text-xs px-2 py-1 rounded-full"
             >
               {skill}
             </span>
@@ -33,19 +37,23 @@ const UserCard = ({ user }) => {
         </div>
       </div>
 
+      {/* Rating + Button */}
       <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center gap-1 text-yellow-400">
+
+        <div className="flex items-center gap-1 text-yellow-500">
           <Star size={16} />
-          <span>{user.rating || 0}</span>
+          <span className="text-sm font-medium">
+            {user.rating || 0}
+          </span>
         </div>
 
         <button
           onClick={() => navigate(`/profile/${user.id}`)}
-
           className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700 transition"
         >
           View Profile
         </button>
+
       </div>
     </div>
   );

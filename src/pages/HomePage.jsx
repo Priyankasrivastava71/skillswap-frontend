@@ -23,7 +23,7 @@ const HomePage = () => {
     <div className="min-h-screen bg-slate-50 dark:bg-[#0a0516] text-slate-900 dark:text-white">
 
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-br from-purple-500/10 via-transparent to-fuchsia-500/10">
+      <section className="bg-gradient-to-br from-purple-900/10 via-transparent to-fuchsia-900/10">
         <div className="max-w-7xl mx-auto px-6 py-24 flex flex-col md:flex-row items-center gap-12">
 
           <div className="flex-1 space-y-6">
@@ -65,7 +65,7 @@ const HomePage = () => {
             <img
               src={learningImg}
               alt="Skill exchange"
-              className="w-full max-w-md mx-auto"
+              className="w-100 max-w-md mx-auto"
             />
           </div>
 
@@ -209,7 +209,7 @@ const HomePage = () => {
 
 
       {/* FOOTER */}
-      <footer className="bg-slate-900 text-slate-400 text-center py-6 text-sm">
+      <footer className="bg-purple-100 text-center py-6 text-sm dark:bg-slate-950 border-t border-purple-200 dark:border-purple-500/20">
         © 2026 SkillSwap • Built with React, Node.js, Supabase
       </footer>
 
@@ -247,7 +247,6 @@ const Feature = ({ icon, title, text }) => (
     <p className="text-sm text-slate-500 mt-2">
       {text}
     </p>
-
   </div>
 );
 

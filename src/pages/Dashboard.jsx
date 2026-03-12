@@ -13,7 +13,6 @@ const Dashboard = () => {
   const [topRated, setTopRated] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Added for stats
   const [pendingCount, setPendingCount] = useState(0);
   const [completedCount, setCompletedCount] = useState(0);
 
@@ -27,7 +26,6 @@ const Dashboard = () => {
         const tRes = await api.get('/users/top-rated');
         setTopRated(tRes.data?.data || []);
 
-        // Fetch requests for stats
         const rRes = await api.get('/requests');
         const requests = rRes.data?.data || [];
 
@@ -72,15 +70,16 @@ const Dashboard = () => {
         }}
       />
 
-      {/* ===== Matches Section ===== */}
+      {/* ===== Perfect Matches ===== */}
       <section>
+
         <h2 className="text-2xl font-semibold mb-6 text-slate-800 dark:text-purple-100 flex items-center gap-2">
           <span className="w-2 h-8 bg-purple-500 rounded-full inline-block shadow-glow"></span>
           Perfect Skill Matches
         </h2>
 
         {matches.length === 0 ? (
-          <p className="text-slate-500 italic">
+          <p className="text-slate-500 dark:text-slate-400 italic">
             No matches found. Update your skills to get better results.
           </p>
         ) : (
@@ -90,49 +89,61 @@ const Dashboard = () => {
             ))}
           </div>
         )}
+
       </section>
 
-      {/* ===== Top Rated Section ===== */}
+      {/* ===== Top Rated Experts ===== */}
       <section>
+
         <h2 className="text-2xl font-semibold mb-6 text-slate-800 dark:text-purple-100 flex items-center gap-2">
           <span className="w-2 h-8 bg-fuchsia-500 rounded-full inline-block"></span>
           Top Rated Experts
         </h2>
 
         {topRated.length === 0 ? (
-          <p className="text-slate-500 italic">
+          <p className="text-slate-500 dark:text-slate-400 italic">
             No top-rated users yet.
           </p>
         ) : (
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
             {topRated.map((u) => (
               <div
                 key={u.id}
-                className="min-w-[280px] bg-white dark:bg-slate-900 p-6 rounded-2xl border border-purple-500/10 shadow-xl"
+                className="min-w-[280px] bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-purple-500/10 shadow-lg hover:shadow-xl transition"
               >
-                <h3 className="font-bold">{u.name}</h3>
 
-                <p className="text-purple-500 text-sm">
+                <h3 className="font-bold text-slate-800 dark:text-white">
+                  {u.name}
+                </h3>
+
+                <p className="text-purple-600 dark:text-purple-400 text-sm mt-1">
                   {u.skills_offered?.join(' • ') || 'No skills listed'}
                 </p>
 
                 <div className="mt-4 flex items-center justify-between">
-                  <span className="text-yellow-500">
+
+                  <span className="text-yellow-500 font-medium">
                     {u.rating || 0} ★
                   </span>
 
                   <button
                     onClick={() => navigate(`/profile/${u.id}`)}
-                    className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700"
+                    className="text-xs bg-purple-600 text-white px-3 py-1 rounded-full hover:bg-purple-700 transition"
                   >
                     View Profile
                   </button>
+
                 </div>
 
               </div>
             ))}
+
           </div>
+
         )}
+
       </section>
 
     </div>

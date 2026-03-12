@@ -14,9 +14,7 @@ const ExploreUsers = () => {
 
   const fetchUsers = async (query = "") => {
     try {
-      const endpoint = query
-        ? `/users/search?skill=${query}`
-        : "/users";
+      const endpoint = query ? `/users/search?skill=${query}` : "/users";
       const res = await api.get(endpoint);
       setUsers(res.data.data);
     } catch (err) {
@@ -25,71 +23,87 @@ const ExploreUsers = () => {
   };
 
   const handleRequest = async (receiverId) => {
-  try {
-    await api.post("/requests", {
-      receiver_id: receiverId,
-      skill_requested: "General Skill Swap",
-      scheduled_date: new Date().toISOString()  // 🔥 REQUIRED
-    });
+    try {
+      await api.post("/requests", {
+        receiver_id: receiverId,
+        skill_requested: "General Skill Swap",
+        scheduled_date: new Date().toISOString()
+      });
 
-    alert("Request sent successfully!");
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    alert(err.response?.data?.message || "Failed to send request");
-  }
-};
+      alert("Request sent successfully!");
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      alert(err.response?.data?.message || "Failed to send request");
+    }
+  };
+
   return (
     <div className="p-6 space-y-10">
 
+      {/* Header + Search */}
       <div className="max-w-2xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-purple-500 mb-6">
+        <h1 className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-6">
           Discover Experts
         </h1>
 
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-purple-400" />
+
           <input
             type="text"
             placeholder="Search by skill..."
-            className="w-full p-4 pl-12 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-purple-500/30"
+            className="w-full p-4 pl-12 rounded-2xl 
+            bg-white dark:bg-slate-800 
+            text-slate-800 dark:text-white
+            border border-slate-200 dark:border-purple-500/30 
+            focus:outline-none focus:border-purple-500"
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && fetchUsers(search)}
           />
         </div>
       </div>
 
+      {/* Users Grid */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
         {users.map((user) => (
           <div
             key={user.id}
-            className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-purple-500/20 shadow-glow"
+            className="bg-white dark:bg-slate-900 p-6 rounded-2xl 
+            border border-slate-200 dark:border-purple-500/20 
+            shadow-lg hover:shadow-xl transition"
           >
-            <h3 className="text-xl font-bold mb-2 dark:text-white">
+
+            <h3 className="text-xl font-bold mb-2 text-slate-800 dark:text-white">
               {user.name}
             </h3>
 
-            <p className="text-sm text-slate-400 mb-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
               {user.bio || "No bio"}
             </p>
 
             <div className="flex justify-between items-center mt-6">
+
               <button
                 onClick={() => navigate(`/profile/${user.id}`)}
-                className="text-purple-500 text-sm"
+                className="text-purple-600 dark:text-purple-400 text-sm font-medium hover:underline"
               >
                 View Profile
               </button>
 
               <button
                 onClick={() => handleRequest(user.id)}
-                className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1 transition"
               >
                 <UserPlus size={16} />
                 Request
               </button>
+
             </div>
+
           </div>
         ))}
+
       </div>
     </div>
   );

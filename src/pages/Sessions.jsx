@@ -15,7 +15,7 @@ const Sessions = () => {
       const filtered = all.filter(
         (req) =>
           req.session_status === "scheduled" ||
-          req.session_status === "completed",
+          req.session_status === "completed"
       );
 
       setSessions(filtered);
@@ -59,37 +59,45 @@ const Sessions = () => {
   if (sessions.length === 0) {
     return (
       <div className="max-w-6xl mx-auto p-6">
-        <h1 className="text-3xl font-bold text-purple-500 mb-6">
+        <h1 className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-6">
           Your Sessions
         </h1>
-        <p className="text-slate-400 italic">No sessions scheduled yet.</p>
+        <p className="text-slate-500 dark:text-slate-400 italic">
+          No sessions scheduled yet.
+        </p>
       </div>
     );
   }
 
   return (
     <div className="max-w-6xl mx-auto p-6 space-y-8">
-      <h1 className="text-3xl font-bold text-purple-500">Your Sessions</h1>
+
+      <h1 className="text-3xl font-bold text-purple-600 dark:text-purple-400">
+        Your Sessions
+      </h1>
 
       <div className="grid gap-6">
+
         {sessions.map((session) => {
           const feedbackExists = session.feedback?.length > 0;
 
           return (
             <div
               key={session.id}
-              className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-purple-500/20 shadow-glow flex flex-col md:flex-row justify-between gap-6"
+              className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-purple-500/20 shadow-lg flex flex-col md:flex-row justify-between gap-6"
             >
+
               <div>
-                <h3 className="font-bold text-lg">
+
+                <h3 className="font-bold text-lg text-slate-800 dark:text-white">
                   {session.otherUser?.name || "User"}
                 </h3>
 
-                <p className="text-slate-400 text-sm">
+                <p className="text-slate-600 dark:text-slate-400 text-sm">
                   Skill: {session.skill_requested}
                 </p>
 
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-500 mt-1">
                   Date: {session.session_date} | Time: {session.session_time}
                 </p>
 
@@ -97,10 +105,11 @@ const Sessions = () => {
                 {session.session_status === "scheduled" &&
                   !session.meeting_link && (
                     <div className="flex gap-2 mt-3">
+
                       <input
                         type="text"
                         placeholder="Paste Google Meet link"
-                        className="bg-slate-100 dark:bg-slate-800 border border-purple-500/20 px-3 py-1 rounded-lg text-sm focus:outline-none focus:border-purple-500"
+                        className="bg-white dark:bg-slate-800 text-slate-800 dark:text-white border border-slate-300 dark:border-purple-500/20 px-3 py-1 rounded-lg text-sm focus:outline-none focus:border-purple-500"
                         value={meetingLinks[session.id] || ""}
                         onChange={(e) =>
                           setMeetingLinks({
@@ -116,17 +125,20 @@ const Sessions = () => {
                       >
                         Save
                       </button>
+
                     </div>
                   )}
 
                 {session.session_status === "completed" && (
-                  <p className="text-xs text-green-400 mt-2">
+                  <p className="text-xs text-green-500 mt-2">
                     Session completed
                   </p>
                 )}
+
               </div>
 
-              <div className="flex gap-3 flex-wrap">
+              <div className="flex gap-3 flex-wrap items-center">
+
                 {/* Join Meeting */}
                 {session.meeting_link &&
                   session.session_status === "scheduled" && (
@@ -151,7 +163,7 @@ const Sessions = () => {
                     </button>
                   )}
 
-                {/* Feedback */}
+                {/* Give Feedback */}
                 {session.session_status === "completed" && !feedbackExists && (
                   <button
                     onClick={() => setFeedbackRequest(session.id)}
@@ -161,15 +173,19 @@ const Sessions = () => {
                   </button>
                 )}
 
+                {/* Feedback Submitted */}
                 {session.session_status === "completed" && feedbackExists && (
-                  <span className="bg-green-500/20 text-green-400 px-4 py-1 rounded-xl self-center h-fit">
+                  <span className="bg-green-500/20 text-green-500 px-4 py-1 rounded-xl text-sm">
                     ✓ Feedback Submitted
                   </span>
                 )}
+
               </div>
+
             </div>
           );
         })}
+
       </div>
 
       {feedbackRequest && (
@@ -179,6 +195,7 @@ const Sessions = () => {
           onRefresh={fetchSessions}
         />
       )}
+
     </div>
   );
 };

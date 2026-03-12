@@ -28,7 +28,6 @@ const Posts = () => {
       setPosts(responseData.posts || []);
       setTotalPages(responseData.totalPages || 1);
       setPage(responseData.currentPage || 1);
-
     } catch (err) {
       console.error("Error fetching posts", err);
       setPosts([]);
@@ -79,7 +78,7 @@ const Posts = () => {
 
         <button
           onClick={() => setShowModal(true)}
-          className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-xl flex items-center gap-2 shadow-glow transition"
+          className="bg-purple-600 hover:bg-purple-700 text-white px-5 py-2 rounded-xl flex items-center gap-2 shadow-lg transition"
         >
           <Plus size={18} />
           Create Post
@@ -88,7 +87,7 @@ const Posts = () => {
 
       {/* Posts */}
       {posts.length === 0 ? (
-        <div className="text-center py-20 text-slate-400">
+        <div className="text-center py-20 text-slate-500 dark:text-slate-400">
           No posts yet.
         </div>
       ) : (
@@ -96,21 +95,22 @@ const Posts = () => {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-purple-500/20 shadow-lg hover:shadow-purple-500/20 transition"
+              className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-purple-500/20 shadow-lg hover:shadow-xl transition"
             >
               <div className="flex justify-between items-start">
+
                 <div>
                   {post.title && (
-                    <h2 className="text-xl font-bold mb-2 dark:text-white">
+                    <h2 className="text-xl font-bold mb-2 text-slate-800 dark:text-white">
                       {post.title}
                     </h2>
                   )}
 
-                  <p className="text-slate-600 dark:text-slate-400 mb-3">
+                  <p className="text-slate-700 dark:text-slate-400 mb-3">
                     {post.content}
                   </p>
 
-                  <p className="text-xs text-purple-400">
+                  <p className="text-xs text-purple-600 dark:text-purple-400">
                     Posted by {post.user?.name}
                   </p>
                 </div>
@@ -118,14 +118,15 @@ const Posts = () => {
                 {post.user_id === user?.id && (
                   <button
                     onClick={() => handleDelete(post.id)}
-                    className="text-red-400 hover:text-red-300"
+                    className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300"
                   >
                     <Trash2 size={18} />
                   </button>
                 )}
+
               </div>
 
-              <CommentSection postId={post.id}/>
+              <CommentSection postId={post.id} />
             </div>
           ))}
         </div>
@@ -134,32 +135,35 @@ const Posts = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center gap-4 pt-6">
+
           <button
             disabled={page === 1}
             onClick={() => fetchPosts(page - 1)}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-40"
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg disabled:opacity-40"
           >
             Prev
           </button>
 
-          <span className="text-purple-400 font-semibold">
+          <span className="text-purple-600 dark:text-purple-400 font-semibold">
             Page {page} of {totalPages}
           </span>
 
           <button
             disabled={page === totalPages}
             onClick={() => fetchPosts(page + 1)}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-40"
+            className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg disabled:opacity-40"
           >
             Next
           </button>
+
         </div>
       )}
 
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-slate-900 w-full max-w-md p-8 rounded-2xl border border-purple-500/30 shadow-glow">
+
+          <div className="bg-white dark:bg-slate-900 w-full max-w-md p-8 rounded-2xl border border-slate-200 dark:border-purple-500/30 shadow-lg">
 
             <h2 className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-6">
               Create Post
@@ -174,7 +178,7 @@ const Posts = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, title: e.target.value })
                 }
-                className="w-full bg-slate-100 dark:bg-slate-800 p-3 rounded-xl border border-purple-500/20 focus:border-purple-500 outline-none"
+                className="w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white p-3 rounded-xl border border-slate-300 dark:border-purple-500/20 focus:border-purple-500 outline-none"
               />
 
               <textarea
@@ -184,14 +188,15 @@ const Posts = () => {
                 onChange={(e) =>
                   setFormData({ ...formData, content: e.target.value })
                 }
-                className="w-full bg-slate-100 dark:bg-slate-800 p-3 rounded-xl border border-purple-500/20 focus:border-purple-500 outline-none"
+                className="w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white p-3 rounded-xl border border-slate-300 dark:border-purple-500/20 focus:border-purple-500 outline-none"
               />
 
               <div className="flex gap-3 pt-3">
+
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 py-2 text-slate-400 hover:text-white transition"
+                  className="flex-1 py-2 text-slate-500 dark:text-slate-400 hover:text-black dark:hover:text-white transition"
                 >
                   Cancel
                 </button>
@@ -199,13 +204,15 @@ const Posts = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-xl shadow-glow transition"
+                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-xl transition disabled:opacity-50"
                 >
                   {loading ? "Posting..." : "Post"}
                 </button>
+
               </div>
 
             </form>
+
           </div>
         </div>
       )}

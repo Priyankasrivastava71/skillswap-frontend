@@ -40,51 +40,59 @@ const Notifications = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 space-y-8">
 
+      {/* Header */}
       <div className="flex items-center gap-4">
-        <Bell size={32} className="text-purple-500" />
-        <h1 className="text-3xl font-bold text-purple-500">
+        <Bell size={32} className="text-purple-600 dark:text-purple-400" />
+        <h1 className="text-3xl font-bold text-purple-600 dark:text-purple-400">
           Notifications
         </h1>
       </div>
 
+      {/* Empty State */}
       {notifications.length === 0 ? (
-        <div className="bg-white dark:bg-slate-900 p-10 rounded-2xl border border-purple-500/20 text-center">
-          <p className="text-slate-400">No notifications yet.</p>
+        <div className="bg-white dark:bg-slate-900 p-10 rounded-2xl border border-slate-200 dark:border-purple-500/20 text-center shadow-lg">
+          <p className="text-slate-500 dark:text-slate-400">
+            No notifications yet.
+          </p>
         </div>
       ) : (
+
         <div className="space-y-4">
+
           {notifications.map((n) => (
             <div
               key={n.id}
-              className={`p-6 rounded-2xl border transition-all shadow-glow ${
+              className={`p-6 rounded-2xl border transition shadow-lg flex justify-between items-center
+              ${
                 n.is_read
-                  ? "bg-slate-800 border-slate-700"
-                  : "bg-purple-900/20 border-purple-500/40"
+                  ? "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700"
+                  : "bg-purple-50 dark:bg-purple-900/20 border-purple-300 dark:border-purple-500/40"
               }`}
             >
-              <div className="flex justify-between items-center">
 
-                <div>
-                  <p className="text-white font-medium">
-                    {n.message}
-                  </p>
-                  <p className="text-xs text-slate-400 mt-1">
-                    {new Date(n.created_at).toLocaleString()}
-                  </p>
-                </div>
+              <div>
+                <p className="font-medium text-slate-800 dark:text-white">
+                  {n.message}
+                </p>
 
-                {!n.is_read && (
-                  <button
-                    onClick={() => markAsRead(n.id)}
-                    className="flex items-center gap-2 text-purple-400 hover:text-purple-300 text-sm"
-                  >
-                    <CheckCircle size={18} />
-                    Mark Read
-                  </button>
-                )}
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  {new Date(n.created_at).toLocaleString()}
+                </p>
               </div>
+
+              {!n.is_read && (
+                <button
+                  onClick={() => markAsRead(n.id)}
+                  className="flex items-center gap-2 text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 text-sm"
+                >
+                  <CheckCircle size={18} />
+                  Mark Read
+                </button>
+              )}
+
             </div>
           ))}
+
         </div>
       )}
     </div>

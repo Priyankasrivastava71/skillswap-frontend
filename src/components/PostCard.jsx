@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import api from './api/axios';
-import { useAuth } from '../context/AuthContext';
+import { useState } from "react";
+import api from "./api/axios";
+import { useAuth } from "../context/AuthContext";
 
 const PostCard = ({ post, onDelete, refreshPosts }) => {
   const { user } = useAuth();
@@ -14,16 +14,14 @@ const PostCard = ({ post, onDelete, refreshPosts }) => {
 
     try {
       setLoading(true);
-      await api.post('/comments', {
+      await api.post("/comments", {
         post_id: post.id,
-        content: comment.trim()
+        content: comment.trim(),
       });
 
       setComment("");
 
-      // Refresh parent posts
       if (refreshPosts) refreshPosts();
-
     } catch (error) {
       console.error("Comment error:", error);
     } finally {
@@ -34,15 +32,15 @@ const PostCard = ({ post, onDelete, refreshPosts }) => {
   const isOwner = user?.id === post?.user?.id;
 
   return (
-    <div className="bg-white dark:bg-slate-900/50 backdrop-blur-sm border border-purple-500/20 p-6 rounded-2xl shadow-glow transition-all hover:border-purple-500/40">
+    <div className="bg-white dark:bg-slate-900/50 backdrop-blur-sm border border-slate-200 dark:border-purple-500/20 p-6 rounded-2xl shadow-glow transition-all hover:border-purple-500/40">
       
       {/* Header */}
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="font-bold text-lg dark:text-white">
+          <h3 className="font-bold text-lg text-slate-900 dark:text-white">
             {post?.title}
           </h3>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             by {post?.user?.name}
           </p>
         </div>
@@ -50,7 +48,7 @@ const PostCard = ({ post, onDelete, refreshPosts }) => {
         {isOwner && (
           <button
             onClick={() => onDelete?.(post.id)}
-            className="text-xs text-red-400 hover:text-red-500"
+            className="text-xs text-red-500 hover:text-red-600 transition"
           >
             Delete
           </button>
@@ -63,25 +61,25 @@ const PostCard = ({ post, onDelete, refreshPosts }) => {
       </p>
 
       {/* Comments Section */}
-      <div className="border-t border-purple-500/10 pt-4">
+      <div className="border-t border-slate-200 dark:border-purple-500/10 pt-4">
 
         <div className="space-y-3 mb-4">
           {Array.isArray(post?.comments) && post.comments.length > 0 ? (
             post.comments.map((c) => (
               <div
                 key={c.id}
-                className="text-sm bg-slate-100 dark:bg-slate-800 p-3 rounded-xl"
+                className="text-sm bg-slate-100 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700"
               >
-                <span className="font-bold text-purple-400">
+                <span className="font-bold text-purple-600 dark:text-purple-400">
                   {c?.user?.name}:{" "}
                 </span>
-                <span className="dark:text-slate-300">
+                <span className="text-slate-700 dark:text-slate-300">
                   {c?.content}
                 </span>
               </div>
             ))
           ) : (
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 dark:text-slate-500">
               No comments yet.
             </p>
           )}
@@ -93,7 +91,7 @@ const PostCard = ({ post, onDelete, refreshPosts }) => {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Write a comment..."
-            className="flex-1 bg-transparent border border-purple-500/20 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-purple-500 dark:text-white"
+            className="flex-1 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-300 dark:border-purple-500/20 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-purple-500"
           />
 
           <button

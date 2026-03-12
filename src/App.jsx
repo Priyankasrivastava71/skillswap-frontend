@@ -29,7 +29,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
 
-        <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-[#0a0516] dark:text-white transition-colors duration-300">
+        <div className="min-h-screen bg-slate-100 text-slate-50 dark:bg-[#0a0516] dark:text-white transition-colors duration-300">
 
           {/* Navbar */}
           <Navbar toggleSidebar={() => setIsOpen(!isOpen)} />
